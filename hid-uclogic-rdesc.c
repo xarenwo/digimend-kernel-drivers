@@ -668,15 +668,7 @@ const size_t uclogic_rdesc_pen_v2_template_size =
 	0x05, 0x0D,     /*      Usage Page (Digitizer),         */ \
 	0x09, 0x39,     /*      Usage (Tablet Function Keys),   */ \
 	0xA0,           /*      Collection (Physical),          */ \
-	0x09, 0x44,     /*          Usage (Barrel Switch),      */ \
-	0x95, 0x01,     /*          Report Count (1),           */ \
-	0x81, 0x02,     /*          Input (Variable),           */ \
-	0x05, 0x01,     /*          Usage Page (Desktop),       */ \
-	0x09, 0x30,     /*          Usage (X),                  */ \
-	0x09, 0x31,     /*          Usage (Y),                  */ \
-	0x95, 0x02,     /*          Report Count (2),           */ \
-	0x81, 0x02,     /*          Input (Variable),           */ \
-	0x95, 0x15,     /*          Report Count (21),          */ \
+	0x95, 0x18,     /*          Report Count (24),          */ \
 	0x81, 0x01,     /*          Input (Constant),           */ \
 	0x05, 0x09,     /*          Usage Page (Button),        */ \
 	0x19, 0x01,     /*          Usage Minimum (01h),        */ \
@@ -689,8 +681,8 @@ const size_t uclogic_rdesc_pen_v2_template_size =
 	0xA0,           /*      Collection (Physical),          */ \
 	0x05, 0x09,     /*          Usage Page (Button),        */ \
 	0x19, 0x01,     /*          Usage Minimum (01h),        */ \
-	0x29, 0x02,     /*          Usage Maximum (02h),        */ \
-	0x95, 0x02,     /*          Report Count (2),           */ \
+	0x29, 0x03,     /*          Usage Maximum (03h),        */ \
+	0x95, 0x03,     /*          Report Count (3),           */ \
 	0x81, 0x02,     /*          Input (Variable),           */ \
 	0x95, _padding, /*          Report Count (_padding),    */ \
 	0x81, 0x01,     /*          Input (Constant),           */ \
@@ -699,14 +691,14 @@ const size_t uclogic_rdesc_pen_v2_template_size =
 
 /* Fixed report descriptor for (tweaked) v1 buttonpad reports */
 const __u8 uclogic_rdesc_buttonpad_v1_arr[] = {
-	UCLOGIC_RDESC_BUTTONPAD_BYTES(20)
+	UCLOGIC_RDESC_BUTTONPAD_BYTES(19)
 };
 const size_t uclogic_rdesc_buttonpad_v1_size =
 			sizeof(uclogic_rdesc_buttonpad_v1_arr);
 
 /* Fixed report descriptor for (tweaked) v2 buttonpad reports */
 const __u8 uclogic_rdesc_buttonpad_v2_arr[] = {
-	UCLOGIC_RDESC_BUTTONPAD_BYTES(52)
+	UCLOGIC_RDESC_BUTTONPAD_BYTES(51)
 };
 const size_t uclogic_rdesc_buttonpad_v2_size =
 			sizeof(uclogic_rdesc_buttonpad_v2_arr);
@@ -765,19 +757,8 @@ const __u8 uclogic_rdesc_ugee_g5_frame_arr[] = {
 	0x75, 0x08,         /*          Report Size (8),            */
 	0x95, 0x01,         /*          Report Count (1),           */
 	0x81, 0x02,         /*          Input (Variable),           */
-	0x25, 0x01,         /*          Logical Maximum (1),        */
-	0x09, 0x44,         /*          Usage (Barrel Switch),      */
 	0x75, 0x01,         /*          Report Size (1),            */
-	0x95, 0x01,         /*          Report Count (1),           */
-	0x81, 0x02,         /*          Input (Variable),           */
-	0x05, 0x01,         /*          Usage Page (Desktop),       */
-	0x09, 0x30,         /*          Usage (X),                  */
-	0x09, 0x31,         /*          Usage (Y),                  */
-	0x75, 0x01,         /*          Report Size (1),            */
-	0x95, 0x02,         /*          Report Count (2),           */
-	0x81, 0x02,         /*          Input (Variable),           */
-	0x75, 0x01,         /*          Report Size (1),            */
-	0x95, 0x0B,         /*          Report Count (11),          */
+	0x95, 0x0E,         /*          Report Count (14),          */
 	0x81, 0x01,         /*          Input (Constant),           */
 	0x05, 0x01,         /*          Usage Page (Desktop),       */
 	0x09, 0x38,         /*          Usage (Wheel),              */
@@ -809,16 +790,7 @@ const __u8 uclogic_rdesc_xppen_deco01_frame_arr[] = {
 	0x29, 0x08, /*          Usage Maximum (08h),        */
 	0x95, 0x08, /*          Report Count (8),           */
 	0x81, 0x02, /*          Input (Variable),           */
-	0x05, 0x0D, /*          Usage Page (Digitizer),     */
-	0x09, 0x44, /*          Usage (Barrel Switch),      */
-	0x95, 0x01, /*          Report Count (1),           */
-	0x81, 0x02, /*          Input (Variable),           */
-	0x05, 0x01, /*          Usage Page (Desktop),       */
-	0x09, 0x30, /*          Usage (X),                  */
-	0x09, 0x31, /*          Usage (Y),                  */
-	0x95, 0x02, /*          Report Count (2),           */
-	0x81, 0x02, /*          Input (Variable),           */
-	0x95, 0x15, /*          Report Count (21),          */
+	0x95, 0x18, /*          Report Count (24),          */
 	0x81, 0x01, /*          Input (Constant),           */
 	0xC0,       /*      End Collection,                 */
 	0xC0        /*  End Collection                      */
