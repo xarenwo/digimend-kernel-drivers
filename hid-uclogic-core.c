@@ -24,6 +24,7 @@
 
 #include "compat.h"
 #include <linux/version.h>
+#include <asm/unaligned.h>
 
 /* Driver data */
 struct uclogic_drvdata {
@@ -383,6 +384,69 @@ static int uclogic_raw_event(struct hid_device *hdev,
 	/* Tweak frame control reports, if necessary */
 	if (report_id == params->frame.id) {
 		return uclogic_raw_event_frame(drvdata, data, size);
+	}
+
+	/* A156P tilt compensation */
+	if (hdev->product == USB_DEVICE_ID_UGEE_XPPEN_TABLET_A156P &&
+		hdev->vendor == USB_VENDOR_ID_UGEE) {
+		/* All tangent lengths for pen angles 1-64
+		 * degrees with a sensor height of 1.8mm 
+		 */
+		const u16 tangents[] = {
+			3, 6, 9, 12, 15, 18, 21, 25, 28, 30, 33, 36,
+			39, 42, 45, 48, 51, 54, 57, 60, 63, 66, 70,
+			73, 76, 79, 82, 85, 88, 92, 95, 98, 102,
+			105, 109, 112, 116, 120, 124, 127, 131,
+			135, 140, 144, 148, 153, 158, 162, 167,
+			173, 178, 184, 189, 195, 202, 208, 215,
+			223, 231, 239, 247, 257, 266, 277
+		};
+		// sqrt(8) / 4 = 0.7071067811865476
+		const s32 discriminant = 7071068;
+		s8 tx = data[8];
+		s8 ty = data[9];
+		s8 abs_tilt;
+		s32 skew;
+
+		if (tx != 0 && ty != 0) {
+			abs_tilt = abs(tx);
+			skew = get_unaligned_le16(&data[2]) -
+				(tx / abs_tilt) * tangents[abs_tilt] *
+					discriminant / 10000000;
+			if (skew < 0)
+				skew = 0;
+			if (skew > 34419)
+				skew = 34419;
+			put_unaligned_le16(skew, &data[2]);
+
+			abs_tilt = abs(ty);
+			skew = get_unaligned_le16(&data[4]) -
+				(ty / abs_tilt) * tangents[abs_tilt] *
+					discriminant / 10000000;
+			if (skew < 0)
+				skew = 0;
+			if (skew > 19461)
+				skew = 19461;
+			put_unaligned_le16(skew, &data[4]);
+		} else if (tx != 0) {
+			abs_tilt = abs(tx);
+			skew = get_unaligned_le16(&data[2]) -
+			    (tx / abs_tilt) * tangents[abs_tilt];
+			if (skew < 0)
+				skew = 0;
+			else if (skew > 34419)
+				skew = 34419;
+			put_unaligned_le16(skew, &data[2]);
+		} else if (ty != 0) {
+			abs_tilt = abs(ty);
+			skew = get_unaligned_le16(&data[4]) -
+			    (ty / abs_tilt) * tangents[abs_tilt];
+			if (skew < 0)
+				skew = 0;
+			else if (skew > 19461)
+				skew = 19461;
+			put_unaligned_le16(skew, &data[4]);
+		}
 	}
 
 	return 0;
