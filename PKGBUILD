@@ -1,11 +1,11 @@
 # Maintainer: Andrei Maris <andrew (at) xarentek (dot) com>
 
-pkgbase=digimend-kernel-drivers
+_pkgbase=digimend-kernel-drivers
 pkgname=digimend-kernel-drivers-dkms-git
-pkgver=8.r37.gea507e2
-pkgrel=2
+pkgver=9.r63.gbf9aa29
+pkgrel=1
 
-pkgdesc='Linux kernel modules (DKMS) for XP-Pen 15.6 Pro and Deco01/02 USB graphics tablets. Git version.'
+pkgdesc='Linux kernel modules (DKMS) for XP-Pen 15.6 Pro graphics tablet. Git version.'
 arch=('any')
 url='https://digimend.github.io'
 license=('GPL2')
